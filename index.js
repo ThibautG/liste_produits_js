@@ -7,6 +7,12 @@ const produits = [
     { id: 5, nom: "Thé Noir", prix: 7.99 },
 ];
 
+// création d'une copie de produits via une boucle pour éviter d'avoir un simple clone
+// merci Sacha
+let produitsModif = [];
+for (let i= 0; i < produits.length; i++) {
+    produitsModif.push(produits[i]);
+};
 
 // création des 4 constantes pour l'affichage dynamique
 const recherche = document.getElementById("recherche");
@@ -26,12 +32,12 @@ let affichage = (objet) => {
         <td class="prix">${produit.prix}</td>
         <td><button onclick="supprimerProduit(${produit.id})" type="reset" class="btn">Supprimer</button></td>
       </tr>`
-    );
+    ).join(""); // utilisation de join pour enlever les virgules
     // insertion dans index.html
     tableau.innerHTML = produitHTML;
 };
     // appel de la fonction
-affichage(produits);
+affichage(produitsModif);
 
 
 // affichage du total des prix
@@ -58,7 +64,8 @@ recherche.addEventListener("input", () => {
     // création d'un tableau vide
     let newProduits = [];
     // utilisation de filter pour n'afficher que les produits contenant les caractères présents dans recherche
-    newProduits = produits.filter((produit) => produit.nom.includes(recherche.value) );
+    newProduits = produitsModif.filter((produit) => produit.nom.includes(recherche.value)
+        || produit.nom.toLowerCase().includes(recherche.value) ); // merci Sacha pour le toLowerCase
     // on appelle la fonction affichage pour modifier le tableau en fonction de notre nouvel objet newProduits
     affichage(newProduits);
     calculPrix();
@@ -68,17 +75,17 @@ recherche.addEventListener("input", () => {
 
 // création fonction supprimer un produit
 let supprimerProduit = (id) => {
-    // on filtre l'objet produits sur les id différent de celui sur lequel on a cliqué
-    let newProduits = produits.filter((produit) => produit.id !== id);
-    affichage(newProduits);
+    // on supprime la ligne dans produitsModifs => Merci Sacha
+    produitsModif.splice(id-1,1)
+    affichage(produitsModif);
     calculPrix();
 };
 
 
 // Réinitialisation de la liste complète
 reset.addEventListener("click", () => {
-    console.log(reset);
     recherche.value = "";
-    affichage(produits);
+    produitsModif = produits;
     calculPrix();
+    affichage(produitsModif);
 })
