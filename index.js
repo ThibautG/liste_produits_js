@@ -24,7 +24,7 @@ let affichage = (objet) => {
         <td>${produit.id}</td>
         <td>${produit.nom}</td>
         <td class="prix">${produit.prix}</td>
-        <td><button type="reset" class="btn">Supprimer</button></td>
+        <td><button onclick="supprimerProduit(${produit.id})" type="reset" class="btn">Supprimer</button></td>
       </tr>`
     );
     // insertion dans index.html
@@ -49,23 +49,26 @@ let calculPrix = () => {
     // insertion HTML du résultat dans la div class="total"
     total.innerHTML = `Votre panier affiche un total de ${totalPrix}€`
 }
+    // appel de la fonction calculPrix
 calculPrix();
 
 
 // filtrage des produits
-recherche.addEventListener("keyup", () => {
+recherche.addEventListener("input", () => {
     // création d'un tableau vide
     let newProduits = [];
-    // utilisation d'un forEach pour observer chaque key "nom" de l'objet produits
-    produits.forEach((produit) => {
-       if (produit.nom.includes(recherche.value)) {
-           // si le key "nom" inclus les caractères présents dans champ recherche
-           // on push la ligne correspondante dans l'objet newProduits
-           newProduits.push(produit);
-       }
-    });
+    // utilisation de filter pour n'afficher que les produits contenant les caractères présents dans recherche
+    newProduits = produits.filter((produit) => produit.nom.includes(recherche.value) );
     // on appelle la fonction affichage pour modifier le tableau en fonction de notre nouvel objet newProduits
     affichage(newProduits);
     calculPrix();
 });
 
+
+
+// supprimer un produit
+    // récupération des boutons supprimer
+/*
+let supprimerProduit = (id) => {
+    let newProduit = produits.filter((id) => )
+}*/
