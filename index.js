@@ -67,8 +67,9 @@ recherche.addEventListener("input", () => {
 
 
 // supprimer un produit
-    // récupération des boutons supprimer
-/*
 let supprimerProduit = (id) => {
-    let newProduit = produits.filter((id) => )
-}*/
+    // on filtre l'objet produits sur les id différent de celui sur lequel on a cliqué
+    let newProduits = produits.filter((produit) => produit.id !== id);
+    affichage(newProduits);
+    calculPrix();
+}
