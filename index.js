@@ -35,21 +35,25 @@ affichage(produits);
 
 
 // affichage du total des prix
+    //création de la fonction calculPrix
+let calculPrix = () => {
     // récupération des prix affichés en HTML depuis JS
-let prix = document.querySelectorAll(".prix");
+    let prix = document.querySelectorAll(".prix");
     // on crée un tableau vide dans lequel on vient push le contenu HTML présent entre les balises de class "prix"
-let prixTab = [];
-prix.forEach((x) => {
-   prixTab.push(Number(x.textContent));
-})
+    let prixTab = [];
+    prix.forEach((x) => {
+        prixTab.push(Number(x.textContent));
+    })
     // calcul du prix total des produits affichés en utilisant reduce
-let totalPrix = prixTab.reduce((acc, v) => acc + v);
+    let totalPrix = prixTab.reduce((acc, v) => acc + v);
     // insertion HTML du résultat dans la div class="total"
-total.innerHTML = `Votre panier affiche un total de ${totalPrix}€`
+    total.innerHTML = `Votre panier affiche un total de ${totalPrix}€`
+}
+calculPrix();
 
 
 // filtrage des produits
-recherche.addEventListener("keydown", () => {
+recherche.addEventListener("keyup", () => {
     // création d'un tableau vide
     let newProduits = [];
     // utilisation d'un forEach pour observer chaque key "nom" de l'objet produits
@@ -62,5 +66,6 @@ recherche.addEventListener("keydown", () => {
     });
     // on appelle la fonction affichage pour modifier le tableau en fonction de notre nouvel objet newProduits
     affichage(newProduits);
+    calculPrix();
 });
 
