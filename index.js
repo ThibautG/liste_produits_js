@@ -7,25 +7,31 @@ const produits = [
     { id: 5, nom: "Thé Noir", prix: 7.99 },
 ];
 
-// création des 3 constantes pour l'affichage dynamique
+
+// création des 4 constantes pour l'affichage dynamique
 const recherche = document.getElementById("recherche");
 const tableau = document.getElementById("tableau");
 const total = document.getElementById("total");
 const reset =document.getElementById("reset");
 
+
 // affichage dynamique du tableau
+    // création d'une fonction pour la réutiliser dans le filtrage
+let affichage = (objet) => {
     // transformation de l'objet js en html
-const produitHTML = produits.map(produit =>
-    `<tr>
+    const produitHTML = objet.map(produit =>
+        `<tr>
         <td>${produit.id}</td>
         <td>${produit.nom}</td>
         <td class="prix">${produit.prix}</td>
         <td><button type="reset" class="btn">Supprimer</button></td>
       </tr>`
-);
-console.log(produitHTML);
+    );
     // insertion dans index.html
-tableau.innerHTML = produitHTML;
+    tableau.innerHTML = produitHTML;
+};
+    // appel de la fonction
+affichage(produits);
 
 
 // affichage du total des prix
@@ -40,3 +46,21 @@ prix.forEach((x) => {
 let totalPrix = prixTab.reduce((acc, v) => acc + v);
     // insertion HTML du résultat dans la div class="total"
 total.innerHTML = `Votre panier affiche un total de ${totalPrix}€`
+
+
+// filtrage des produits
+recherche.addEventListener("keydown", () => {
+    // création d'un tableau vide
+    let newProduits = [];
+    // utilisation d'un forEach pour observer chaque key "nom" de l'objet produits
+    produits.forEach((produit) => {
+       if (produit.nom.includes(recherche.value)) {
+           // si le key "nom" inclus les caractères présents dans champ recherche
+           // on push la ligne correspondante dans l'objet newProduits
+           newProduits.push(produit);
+       }
+    });
+    // on appelle la fonction affichage pour modifier le tableau en fonction de notre nouvel objet newProduits
+    affichage(newProduits);
+});
+
