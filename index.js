@@ -75,8 +75,8 @@ recherche.addEventListener("input", () => {
 
 // création fonction supprimer un produit
 let supprimerProduit = (id) => {
-    // on supprime la ligne dans produitsModifs => Merci Sacha
-    produitsModif.splice(id-1,1)
+    // on supprime la ligne dans produitsModifs avec filter => Merci Sacha
+    produitsModif = produitsModif.filter(produits => produits.id !== id);
     affichage(produitsModif);
     calculPrix();
 };
@@ -86,6 +86,6 @@ let supprimerProduit = (id) => {
 reset.addEventListener("click", () => {
     recherche.value = "";
     produitsModif = produits;
-    calculPrix();
     affichage(produitsModif);
+    calculPrix();
 })
