@@ -53,7 +53,7 @@ let calculPrix = () => {
     // calcul du prix total des produits affichés en utilisant reduce
     let totalPrix = prixTab.reduce((acc, v) => acc + v);
     // insertion HTML du résultat dans la div class="total"
-    total.innerHTML = `Votre panier affiche un total de ${totalPrix}€`
+    total.innerHTML = `<p>Votre panier affiche un total de ${totalPrix}€</p>`
 }
     // appel de la fonction calculPrix
 calculPrix();
